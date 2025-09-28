@@ -1,0 +1,22 @@
+version: '1'
+services:
+  n8n:
+    build:
+      context: .
+    ports:
+      - port: 5678
+        http: true
+    resources:
+      memory: 512Mi
+      cpu: 0.1
+    env:
+      - name: N8N_PORT
+        value: "5678"
+      - name: N8N_PROTOCOL
+        value: "https"
+      - name: N8N_HOST
+        value: ${NF_HOST_0}
+    healthChecks:
+      http:
+        path: /healthz
+        port: 5678
